@@ -14,4 +14,4 @@ REPLACE() {
   fi
   sed -e "s/$1/$2/g" -e "s/$3/$4/g" -e "s/$5/$6/g" $7 >$8
 }
-REPLACE URI https://"$URI" USER "$USER" APIKEY "$APIKEY" config.tmpl config
+REPLACE URI "$URI" USER "$USER" APIKEY "$APIKEY" config.tmpl config
