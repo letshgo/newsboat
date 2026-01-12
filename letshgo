@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+URI=$(pass newsboat/uri)
+USER=$(pass newsboat/email)
+APIKEY=$(pass newsboat/apikey)
+REPLACE() {
+  if [ ! $URI ]; then
+    pass insert newsboat/uri
+  fi
+  if [ ! $USER ]; then
+    pass insert newsboat/email
+  fi
+  if [ ! $APIKEY ]; then
+    pass insert newsboat/apikey
+  fi
+  sed -e "s/$1/$2/g" -e "s/$3/$4/g" -e "s/$5/$6" $7 >$8
+}
+REPLACE URI "$URI" USER "$USER" APIKEY "$APIKEY" config.tmpl config
