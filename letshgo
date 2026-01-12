@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 URI=$(pass newsboat/uri)
-USER=$(pass newsboat/email)
+USER=$(pass newsboat/user)
 APIKEY=$(pass newsboat/apikey)
 REPLACE() {
   if [ ! $URI ]; then
     pass insert newsboat/uri
   fi
   if [ ! $USER ]; then
-    pass insert newsboat/email
+    pass insert newsboat/user
   fi
   if [ ! $APIKEY ]; then
     pass insert newsboat/apikey
