@@ -1,17 +1,15 @@
 #!/usr/bin/env bash
-URI=$(pass newsboat/uri)
-USER=$(pass newsboat/user)
-APIKEY=$(pass newsboat/apikey)
+declare -A NBCRED=(
+  [URI]=newsboat/uri
+  [USER]=newsboat/user
+  [APIKEY]=newsboat/apikey
+)
 REPLACE() {
-  if [ ! $URI ]; then
-    pass insert newsboat/uri
-  fi
-  if [ ! $USER ]; then
-    pass insert newsboat/user
-  fi
-  if [ ! $APIKEY ]; then
-    pass insert newsboat/apikey
-  fi
+  for CRED in ${NBCRED[@]}; do
+    if ! pass $CRED &>/dev/null; then
+      pass insert $CRED
+    fi
+  done
   sed -e "s/$1/$2/g" -e "s/$3/$4/g" -e "s/$5/$6/g" $7 >$8
 }
-REPLACE URI "$URI" USER "$USER" APIKEY "$APIKEY" config.tmpl config
+REPLACE URI $(pass ${NBCRED[URI]}) USER $(pass ${NBCRED[USER]}) APIKEY $(pass ${NBCRED[APIKEY]}) config.tmpl config
